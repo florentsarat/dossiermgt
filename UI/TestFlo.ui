@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1090</width>
-    <height>741</height>
+    <width>1202</width>
+    <height>811</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,32 +27,25 @@
        <attribute name="title">
         <string>Suivi de dossier</string>
        </attribute>
-       <widget class="QTableView" name="tabledesdossiers">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>1051</width>
-          <height>571</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="addNewCase">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>141</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Ajouter un dossier</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="addNewCase">
+          <property name="text">
+           <string>Ajouter un dossier</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTableView" name="tabledesdossiers">
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>true</bool>
+          </attribute>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -63,16 +56,11 @@
        <attribute name="title">
         <string>Gestion de RDV</string>
        </attribute>
-       <widget class="QTableView" name="listedeRDV">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>10</y>
-          <width>1041</width>
-          <height>641</height>
-         </rect>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QTableView" name="listedeRDV"/>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>
@@ -83,7 +71,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1090</width>
+     <width>1202</width>
      <height>21</height>
     </rect>
    </property>

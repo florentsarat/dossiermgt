@@ -1,35 +1,77 @@
-from PyQt5 import QtWidgets, QtGui
+# Applying a sort feature in a QTableView
 
-class MyWidget(QtWidgets.QWidget):
+import sys
+from PyQt5.QtCore import (Qt,
+                          QModelIndex,
+                          QAbstractTableModel,
+                          QSortFilterProxyModel)
+from PyQt5.QtWidgets import (QApplication,
+                             QTableView)
+
+HEADER = ['Qty', 'Fruit']
+DATA = [[10, 'Starfruit'],
+        [12, 'Orange'],
+        [54, 'Kiwi'],
+        [7, 'Bapples']]
+
+
+# Creating the table model
+class SortingTableModel(QAbstractTableModel):
 
     def __init__(self, parent=None):
-        super().__init__(parent=parent)
 
-        self.tableModel = QtGui.QStandardItemModel(self)
-        self.tableModel.itemChanged.connect(self.itemChanged)
+        super().__init__(parent)
 
-        item = QtGui.QStandardItem("Click me")
-        item.setCheckable(True)
-        self.tableModel.appendRow(item)
+    def headerData(self, section, orientation, role):
 
-        self.mainLayout = QtWidgets.QVBoxLayout()
-        self.setLayout(self.mainLayout)
+        if role == Qt.DisplayRole:
+            if orientation == Qt.Horizontal:
+                return HEADER[section]
 
-        self.tableView = QtWidgets.QTableView()
-        self.tableView.setModel(self.tableModel)
-        self.mainLayout.addWidget(self.tableView)
+    def data(self, index, role):
 
-    def itemChanged(self, item):
-        print("Item {!r} checkState: {}".format(item.text(), item.checkState()))
+        row = index.row()
+        col = index.column()
+
+        if role == Qt.DisplayRole:
+            value = DATA[row][col]
+            return value
+
+    def columnCount(self, parent):
+
+        return len(HEADER)
+
+    def rowCount(self, parent):
+
+        return len(DATA)
+
+    def insertRows(self, position, rows, parent=QModelIndex()):
+
+        self.beginInsertRows(parent, position, position + rows - 1)
+        self.endInsertRows()
+        return True
 
 
-def main():
-    app = QtWidgets.QApplication([])
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
 
-    win = MyWidget()
-    win.show()
-    win.raise_()
-    app.exec_()
+    # How to apply sorting in a QTableView
 
-if __name__ == "__main__":
-    main()
+    # Step 1: create the model for the QTableView
+    tablemodel = SortingTableModel()
+    tablemodel.insertRows(len(DATA), 1)
+
+    # Step 2: create the sorter model
+    sortermodel = QSortFilterProxyModel()
+    sortermodel.setSourceModel(tablemodel)
+    sortermodel.setFilterKeyColumn(3)
+
+    # Step 3: setup the QTableView to enable sorting
+    tableview = QTableView()
+    tableview.setWindowTitle('Sorting QTableView')
+    tableview.setModel(sortermodel)
+    tableview.setSortingEnabled(True)
+    tableview.sortByColumn(1, Qt.AscendingOrder)   # sorting via 'Fruit' header
+    tableview.show()
+
+    sys.exit(app.exec())
