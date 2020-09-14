@@ -1,7 +1,6 @@
-
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import ConcreteBase
+
 
 from init import Base
 
@@ -10,7 +9,7 @@ from init import Base
 #############################
 
 
-class dossier(Base):
+class Dossier(Base):
     __tablename__ = 'dossier'
     id = Column(Integer, primary_key=True)
     nameDossier = Column(String)
@@ -29,6 +28,7 @@ class dossier(Base):
 
     priceSalesDossier = Column(Integer)
     mobiliersDossier = Column(Integer)
+    partNotaire = Column(Float)
 
     statusSRU = Column(String)
 
@@ -41,64 +41,77 @@ class dossier(Base):
     deadlinePC = Column(Date)
 
     pret = Column(String)
-    deadlinePret = Column(Date)
+    deadlinePret = Column(String)
 
-    ODPReceived = Column(Boolean)
+    ODPReceived = Column(String)
 
     deadlineVente = Column(Date)
 
+    RDVFixe = Column(Boolean)
     datesignature = Column(Date)
 
     agencePriceDossier = Column(Integer)
     dateDossier = Column(Date)
     statusDossier = Column(String)
-    todoactions = relationship("todoelement", backref='dossier')
+    todoactions = relationship("Todoelement", backref='Dossier')
 
+    dossierReady = Column(Boolean)
 
-    def __init__(self, name, type, provenance, notaireV , notaireAc, comment, dateDossier, status):
+    def __init__(self, name, typed, provenance, notairev ,
+                 notaireac, statusavantcontrat, comment,
+                 datedossier, status):
         self.nameDossier = name
-        self.typeDossier = type
+        self.typeDossier = typed
 
         self.dossierprovenance = provenance
 
-        self.notairevendeurDossier = notaireV
-        self.notaireacquereurDossier = notaireAc
+        self.notairevendeurDossier = notairev
+        self.notaireacquereurDossier = notaireac
+
+        self.statusavantContrat = statusavantcontrat
+
+        self.ODPReceived = "Pas reçu"
+        self.statusSRU = "A vérifier"
+        self.pret = "Je ne sais pas"
+        self.statusDia = "Non"
 
         self.commentsDossier = comment
-        self.dateDossier = dateDossier
+        self.dateDossier = datedossier
         self.statusDossier = status
 
+        self.dossierReady = False
+        self.RDVFixe = False
 
-class todoelement(ConcreteBase, Base):
+class Todoelement(Base):
     __tablename__ = 'todoelement'
     id = Column(Integer, primary_key=True)
     name = Column(String(100))
     dossier_id = Column(Integer, ForeignKey('dossier.id'))
     status = Column(String(100))
-
-    __mapper_args__ = {
-        'polymorphic_identity': 'todoelement',
-        'concrete': True
-    }
-
-class todoRDV(todoelement):
-    __tablename__ = 'todoRDV'
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100))
-    avec = Column(String(100))
-    status = Column(String(100))
-    typedeRDV =Column(String(100))
     datelimit = Column(Date)
-    dossier_id = Column(Integer, ForeignKey('dossier.id'))
-    dossier = relationship("dossier")
+    # dossier = relationship("dossier")
     __mapper_args__ = {
-        'polymorphic_identity': 'todoRDV',
-        'concrete': True
+        'polymorphic_identity': 'Todoelement'
     }
 
-    def __init__(self, name, avec, typedeRDV, datelimit):
+    def __init__(self, name, datelimit):
+        self.name = name
+        self.status = 'A Faire'
+        self.datelimit = datelimit
+
+
+class TodoRDV(Todoelement):
+
+    avec = Column(String(100))
+    typedeRDV =Column(String(100))
+    __mapper_args__ = {
+        'polymorphic_identity': 'TodoRDV',
+    }
+
+    def __init__(self, name, avec, typederdv, datelimit):
+        # super().__init__(name)
         self.name = name
         self.status = 'A réaliser'
         self.avec = avec
-        self.typedeRDV = typedeRDV
+        self.typedeRDV = typederdv
         self.datelimit= datelimit

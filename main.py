@@ -9,6 +9,8 @@ from init import Base
 
 from mainwindows import home
 
+import ressources
+
 #############################
 # DB setup and initialization
 #############################

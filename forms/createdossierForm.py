@@ -3,23 +3,53 @@ from PySide2.QtWidgets import QDialog, QDialogButtonBox
 
 from datetime import datetime
 
-from datamodel.models import dossier
+from datamodel.models import Dossier
 
-from PySide2.QtUiTools import loadUiType
+from PySide2.QtUiTools import QUiLoader
 
+import ressources
 
-class CreateForm(QDialog, loadUiType('UI/FormCreate.ui')[0]):
-    mySignal = QtCore.Signal()
+class CreateForm(QDialog):
+    mySignal = QtCore.Signal(Dossier)
 
     def __init__(self, parent, session):
         super(CreateForm, self).__init__(parent)
+
+        # ui_file = ":UI\\UI\\FormCreate.ui"
+        ui_file = "UI\\FormCreate.ui"
+        ui_file = QtCore.QFile(ui_file)
+        ui_file.open(QtCore.QFile.ReadOnly)
+        loader = QUiLoader()
+        self.ui = loader.load(ui_file)
+        ui_file.close()
+
         self.session = session
-        self.setupUi(self)
-        self.validatedossierNewButton = self.findChild(QDialogButtonBox, "validatenewdossier")
-        self.validatedossierNewButton.accepted.connect(self.clickedBtnCreateDossier)
+
+        self.ui.provanceDrop.currentIndexChanged.connect(self.manageAvantContratFromDropProvenance)
+        self.validatedossierButton = self.ui.findChild(QDialogButtonBox, "validatenewdossier")
+        self.validatedossierButton.accepted.connect(self.clickedBtnCreateDossier)
+
+
+    def manageAvantContratFromDropProvenance(self):
+        if self.ui.provanceDrop.currentText() != "Agence":
+            self.ui.statusAvantContrat.hide()
+            self.ui.statusAvantContratComb.hide()
+        else:
+            self.ui.statusAvantContrat.show()
+            self.ui.statusAvantContratComb.show()
 
     def clickedBtnCreateDossier(self):
-        anewdossier = dossier(self.namedossier.text(), self.typeDossier.currentText(), self.provanceDrop.currentText(), self.NotaireVendeur.text(), self.NotaireAc.text(), self.textComment.toPlainText(), datetime.today(), 'En cours')
+        if self.ui.provanceDrop.currentText() != "Agence":
+            statusAvantContrat = "A faire"
+            status = "PUV en préparation"
+        else:
+            statusAvantContrat = self.ui.statusAvantContratComb.currentText()
+            status = "Sign Compro en cours"
+
+        anewdossier = Dossier(self.ui.namedossier.text(), self.ui.typeDossier.currentText(),
+                              self.ui.provanceDrop.currentText(), self.ui.NotaireVendeur.text(),
+                              self.ui.NotaireAc.text(), statusAvantContrat,
+                              self.ui.textComment.toPlainText(), datetime.today(), status)
         self.session.add(anewdossier)
         self.session.commit()
-        self.mySignal.emit()
+        self.mySignal.emit(anewdossier)

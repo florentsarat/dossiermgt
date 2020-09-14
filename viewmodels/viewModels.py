@@ -2,119 +2,188 @@ from PySide2 import QtCore, QtGui
 from PySide2.QtCore import Qt,QAbstractTableModel, QDate
 from PySide2.QtGui import QBrush
 
-class dossiersTableView(QAbstractTableModel):
+
+def definedossiertableboject(dossiertoupdate):
+    if dossiertoupdate is not None:
+        dossierID = QtGui.QStandardItem()
+        dossierID.setData(dossiertoupdate.id, QtCore.Qt.DisplayRole)
+
+        dossiername = QtGui.QStandardItem()
+        dossiername.setData(dossiertoupdate.nameDossier, QtCore.Qt.DisplayRole)
+
+        dossiertype = QtGui.QStandardItem()
+        dossiertype.setData(dossiertoupdate.typeDossier, QtCore.Qt.DisplayRole)
+
+        dossierprovenance = QtGui.QStandardItem()
+        dossierprovenance.setData(dossiertoupdate.dossierprovenance, QtCore.Qt.DisplayRole)
+
+        statusavantContrat = QtGui.QStandardItem()
+        statusavantContrat.setData(dossiertoupdate.statusavantContrat, QtCore.Qt.DisplayRole)
+
+        notairevendeurDossier = QtGui.QStandardItem()
+        notairevendeurDossier.setData(dossiertoupdate.notairevendeurDossier, QtCore.Qt.DisplayRole)
+
+        notaireacquereurDossier = QtGui.QStandardItem()
+        notaireacquereurDossier.setData(dossiertoupdate.notaireacquereurDossier, QtCore.Qt.DisplayRole)
+
+        prixdeVente = QtGui.QStandardItem()
+        prixdeVente.setData(dossiertoupdate.priceSalesDossier, QtCore.Qt.DisplayRole)
+
+        parNotaire = QtGui.QStandardItem()
+        parNotaire.setData(dossiertoupdate.partNotaire, QtCore.Qt.DisplayRole)
+
+        dossierstatus = QtGui.QStandardItem()
+        dossierstatus.setData(dossiertoupdate.statusDossier, QtCore.Qt.DisplayRole)
+
+        dossierdate = QtGui.QStandardItem()
+        dossierdate.setData(dossiertoupdate.dateDossier, QtCore.Qt.DisplayRole)
+
+        dateDBPC = QtGui.QStandardItem()
+        dateDBPC.setData(dossiertoupdate.deadlinePC, QtCore.Qt.DisplayRole)
+
+        dateDBPret = QtGui.QStandardItem()
+        dateDBPret.setData(dossiertoupdate.deadlinePret, QtCore.Qt.DisplayRole)
+
+        dateDBVente = QtGui.QStandardItem()
+        dateDBVente.setData(dossiertoupdate.deadlineVente, QtCore.Qt.DisplayRole)
+
+        datebrdv = QtGui.QStandardItem()
+        datebrdv.setData(dossiertoupdate.datesignature, QtCore.Qt.DisplayRole)
+
+        editAction = QtGui.QStandardItem()
+        editAction.setData('Editer', QtCore.Qt.DisplayRole)
+
+        afaire = QtGui.QStandardItem()
+        afaire.setData('+Tâche', QtCore.Qt.DisplayRole)
+
+        actionbutton = QtGui.QStandardItem()
+        actionbutton.setData('+RDV', QtCore.Qt.DisplayRole)
+
+        return [dossierID, dossiername, dossiertype, dossierprovenance,
+                statusavantContrat, notairevendeurDossier, notaireacquereurDossier, prixdeVente,
+                parNotaire,dossierstatus, dossierdate,dateDBPC,
+                dateDBPret, dateDBVente, datebrdv, editAction,
+                actionbutton, afaire]
+    else:
+        return None
+
+
+def definetasktableobject(tasktoupdate):
+    if tasktoupdate is not None:
+        taskID = QtGui.QStandardItem()
+        taskID.setData(tasktoupdate.id, QtCore.Qt.DisplayRole)
+
+        taskname = QtGui.QStandardItem()
+        taskname.setData(tasktoupdate.name, QtCore.Qt.DisplayRole)
+
+        taskdossier = QtGui.QStandardItem()
+        taskdossier.setData(tasktoupdate.Dossier.nameDossier, QtCore.Qt.DisplayRole)
+
+        taskdatelim = QtGui.QStandardItem()
+        taskdatelim.setData(tasktoupdate.datelimit, QtCore.Qt.DisplayRole)
+
+        taskstatus = QtGui.QStandardItem()
+        taskstatus.setData(tasktoupdate.status, QtCore.Qt.DisplayRole)
+
+        taskIsdone = QtGui.QStandardItem()
+        taskIsdone.setData('Tâche réalisée', QtCore.Qt.DisplayRole)
+
+        return [taskID, taskname, taskdossier, taskdatelim,  taskstatus, taskIsdone]
+    else:
+        return None
+
+
+class DossiersTableView(QAbstractTableModel):
     def __init__(self, datain, parent=None):
         QAbstractTableModel.__init__(self, parent)
         self.mydata = QtGui.QStandardItemModel(0, 3)
-        self.getData(datain)
-        self.header = ['ID','Dossier', 'Type','Provenance', 'Statut Avant Contrat', 'Notaire Revendeur', 'Notaire Acquéreur', 'Statut', 'Date','' , '']
+        self.getdata(datain)
+        self.header = ['ID','Dossier', 'Type','Provenance',
+                       'Statut Avant Contrat', 'Notaire Revendeur', 'Notaire Acquéreur',
+                       'Prix de Vente', 'Part Notaire', 'Statut', 'Date','DB PC', 'DB Prêt', 'DB Vente','Date RDV signature', '', '', '']
 
-    def getData(self, datain):
+    def updateadossier(self, dossiertoupdate, index):
+        mynewline=definedossiertableboject(dossiertoupdate)
+
+        self.mydata.setItem(index.row(),1,mynewline[1])
+        self.mydata.setItem(index.row(), 2, mynewline[2])
+        self.mydata.setItem(index.row(), 3, mynewline[3])
+        self.mydata.setItem(index.row(), 4, mynewline[4])
+        self.mydata.setItem(index.row(), 5, mynewline[5])
+        self.mydata.setItem(index.row(), 6, mynewline[6])
+        self.mydata.setItem(index.row(), 7, mynewline[7])
+        self.mydata.setItem(index.row(), 8, mynewline[8])
+        self.mydata.setItem(index.row(), 9, mynewline[9])
+
+    def appenddossier(self, newdossiertoappend):
+        if newdossiertoappend is not None:
+            rc = self.mydata.rowCount()
+            self.beginInsertRows(QtCore.QModelIndex(), rc, rc)
+            lineForDossier = definedossiertableboject(newdossiertoappend)
+            self.mydata.appendRow(lineForDossier)
+            self.endInsertRows()
+
+    def getdata(self, datain):
         if datain is not None:
-            self.datain = datain
-        self.mydata.clear()
-        for dossier in self.datain:
+            for dossier in datain:
+                lineForDossier= definedossiertableboject(dossier)
+                self.mydata.appendRow(lineForDossier)
 
-            dossierID = QtGui.QStandardItem()
-            dossierID.setData(dossier.id, QtCore.Qt.DisplayRole)
-
-            dossiername = QtGui.QStandardItem()
-            dossiername.setData(dossier.nameDossier, QtCore.Qt.DisplayRole)
-
-            dossiertype = QtGui.QStandardItem()
-            dossiertype.setData(dossier.typeDossier, QtCore.Qt.DisplayRole)
-
-            dossierprovenance = QtGui.QStandardItem()
-            dossierprovenance.setData(dossier.dossierprovenance, QtCore.Qt.DisplayRole)
-
-            statusavantContrat = QtGui.QStandardItem()
-            statusavantContrat.setData(dossier.statusavantContrat, QtCore.Qt.DisplayRole)
-
-            notairevendeurDossier = QtGui.QStandardItem()
-            notairevendeurDossier.setData(dossier.notairevendeurDossier, QtCore.Qt.DisplayRole)
-
-            notaireacquereurDossier = QtGui.QStandardItem()
-            notaireacquereurDossier.setData(dossier.notaireacquereurDossier, QtCore.Qt.DisplayRole)
-
-            dossierstatus = QtGui.QStandardItem()
-            dossierstatus.setData(dossier.statusDossier, QtCore.Qt.DisplayRole)
-
-            dossierdate = QtGui.QStandardItem()
-            dossierdate.setData(dossier.dateDossier, QtCore.Qt.DisplayRole)
-
-            dossierdate = QtGui.QStandardItem()
-            dossierdate.setData(dossier.dateDossier, QtCore.Qt.DisplayRole)
-
-            editAction = QtGui.QStandardItem()
-            editAction.setData('Editer', QtCore.Qt.DisplayRole)
-
-            actionbutton = QtGui.QStandardItem()
-            actionbutton.setData('+RDV', QtCore.Qt.DisplayRole)
-
-            self.mydata.appendRow([dossierID, dossiername, dossiertype, dossierprovenance, statusavantContrat, notairevendeurDossier, notaireacquereurDossier, dossierstatus, dossierdate, editAction,actionbutton])
+    # def triggerupdate(self):
+    #     self.layoutChanged.emit()
 
     def rowCount(self, index):
         return self.mydata.rowCount()
 
     def data(self, index, role):
-        if role == Qt.DisplayRole:
-            if index.column() == 8:
-                return QDate(self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole))
-            else:
-                return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
+
+        # pass
+        if index.isValid():
+            if role == Qt.DisplayRole:
+                if index.column() == 10:
+                    return QDate(self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole))
+                else:
+                    return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
+        else:
+            print('invalid')
 
     def columnCount(self, index):
-        # if self.mydata is None:
-            return len(self.header)
-        # else:
-        #     return 6
+        return len(self.header)
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
             return self.header[section]
 
 
-class rdvTableView(QAbstractTableModel):
-    def __init__(self, rdvData, parent=None):
+class TaskTableView(QAbstractTableModel):
+    def __init__(self, tasksin, parent=None):
         QAbstractTableModel.__init__(self, parent)
         self.mydata = QtGui.QStandardItemModel(0, 3)
-        self.getData(rdvData)
+        self.getData(tasksin)
+        self.header = ['ID', 'Nom', 'Dossier', 'Date limite', 'Status', '']
 
+    def updateatask(self, tasktoupdate, index):
+        mynewline=definetasktableobject(tasktoupdate)
+        self.mydata.setItem(index.row(),1,mynewline[1])
+        self.mydata.setItem(index.row(), 2, mynewline[2])
+        self.mydata.setItem(index.row(), 3, mynewline[3])
+        self.mydata.setItem(index.row(), 4, mynewline[4])
+        self.mydata.setItem(index.row(), 5, mynewline[5])
+        print(tasktoupdate.status)
 
-    def getData(self, rdvdatain):
-        if rdvdatain is not None:
-            self.rdvData = rdvdatain
-        else :
-            pass
-        self.mydata.clear()
-        for rdv in self.rdvData:
+    def appendtask(self, newtasktoappend):
+        if newtasktoappend is not None:
+            rc = self.mydata.rowCount()
+            self.beginInsertRows(QtCore.QModelIndex(), rc, rc)
+            lineForDossier = definetasktableobject(newtasktoappend)
+            self.mydata.appendRow(lineForDossier)
+            self.endInsertRows()
 
-            rdvID = QtGui.QStandardItem()
-            rdvID.setData(rdv.id, QtCore.Qt.DisplayRole)
-
-            rdvname = QtGui.QStandardItem()
-            rdvname.setData(rdv.name, QtCore.Qt.DisplayRole)
-
-            rdvdossier = QtGui.QStandardItem()
-            rdvdossier.setData(rdv.dossier.nameDossier, QtCore.Qt.DisplayRole)
-
-            rdvdatelim = QtGui.QStandardItem()
-            rdvdatelim.setData(rdv.datelimit, QtCore.Qt.DisplayRole)
-
-            rdvavec = QtGui.QStandardItem()
-            rdvavec.setData(rdv.avec, QtCore.Qt.DisplayRole)
-
-            rdvtype = QtGui.QStandardItem()
-            rdvtype.setData(rdv.typedeRDV, QtCore.Qt.DisplayRole)
-
-            rdvstatus = QtGui.QStandardItem()
-            rdvstatus.setData(rdv.status, QtCore.Qt.DisplayRole)
-
-            rdvIsdone = QtGui.QStandardItem()
-            rdvIsdone.setData('RDV Pris', QtCore.Qt.DisplayRole)
-
-            self.mydata.appendRow([rdvID, rdvname, rdvdossier, rdvdatelim, rdvavec, rdvtype, rdvstatus, rdvIsdone])
-
+    def getData(self, tasksin):
+        if tasksin is not None:
+            for task in tasksin:
+                linefortask = definetasktableobject(task)
+                self.mydata.appendRow(linefortask)
 
     def rowCount(self, index):
         return self.mydata.rowCount()
@@ -126,18 +195,127 @@ class rdvTableView(QAbstractTableModel):
             else :
                 return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
         if role == Qt.BackgroundRole:
-            if self.mydata.item(index.row(), 6).data(QtCore.Qt.DisplayRole)== "Pris":
+            if self.mydata.item(index.row(), 4).data(QtCore.Qt.DisplayRole)== "Réalisée":
                 return QBrush(Qt.darkGreen)
             else:
                 return QBrush(Qt.white)
 
     def columnCount(self, index):
-        if self.mydata is None:
-            return len(self.mydata.item(0))
-        else:
-            return 8
+        return len(self.header)
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
-        header = ['ID','RDV Name', 'Dossier', 'Date limite', 'Avec', 'Type de RDV', 'Status', '']
         if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
-            return header[section]
+            return self.header[section]
+
+
+class allTodoTableView(QAbstractTableModel):
+    def __init__(self, allTodoData, parent=None):
+        QAbstractTableModel.__init__(self, parent)
+        self.mydata = QtGui.QStandardItemModel(0, 3)
+        self.getData(allTodoData)
+
+        self.header = ['ID', 'A faire', 'Dossier', 'Statut', '', '']
+
+    def getData(self, allTodoData):
+        if allTodoData is not None:
+            self.allTodoData = allTodoData
+        else :
+            pass
+        self.mydata.clear()
+        for todo in self.allTodoData:
+
+            todoID = QtGui.QStandardItem()
+            todoID.setData(todo.id, QtCore.Qt.DisplayRole)
+
+            todoname = QtGui.QStandardItem()
+            todoname.setData(todo.name, QtCore.Qt.DisplayRole)
+
+            tododossier = QtGui.QStandardItem()
+            tododossier.setData(todo.Dossier.nameDossier, QtCore.Qt.DisplayRole)
+
+            todostatus = QtGui.QStandardItem()
+            todostatus.setData(todo.status, QtCore.Qt.DisplayRole)
+
+            Isdone = QtGui.QStandardItem()
+            Isdone.setData('Done', QtCore.Qt.DisplayRole)
+
+            VoirDossier = QtGui.QStandardItem()
+            VoirDossier.setData('Voir Dossier', QtCore.Qt.DisplayRole)
+
+            self.mydata.appendRow([todoID, todoname, tododossier, todostatus, Isdone, VoirDossier])
+
+
+    def rowCount(self, index):
+        return self.mydata.rowCount()
+
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
+        # if role == Qt.BackgroundRole:
+        #     if self.mydata.item(index.row(), 6).data(QtCore.Qt.DisplayRole)== "Pris":
+        #         return QBrush(Qt.darkGreen)
+        #     else:
+        #         return QBrush(Qt.white)
+
+    def columnCount(self, index):
+        return len(self.header)
+
+    def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
+
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+            return self.header[section]
+
+
+class allTodoTableViewInDossier(QAbstractTableModel):
+    def __init__(self, allTodoData, parent=None):
+        QAbstractTableModel.__init__(self, parent)
+        self.mydata = QtGui.QStandardItemModel(0, 3)
+        self.getData(allTodoData)
+
+        self.header = ['ID', 'A faire', 'Statut', '']
+
+    def getData(self, allTodoData):
+        if allTodoData is not None:
+            self.allTodoData = allTodoData
+        else :
+            pass
+        self.mydata.clear()
+        for todo in self.allTodoData:
+
+            todoID = QtGui.QStandardItem()
+            todoID.setData(todo.id, QtCore.Qt.DisplayRole)
+
+            todoname = QtGui.QStandardItem()
+            todoname.setData(todo.name, QtCore.Qt.DisplayRole)
+
+            tododossier = QtGui.QStandardItem()
+            tododossier.setData(todo.Dossier.nameDossier, QtCore.Qt.DisplayRole)
+
+            todostatus = QtGui.QStandardItem()
+            todostatus.setData(todo.status, QtCore.Qt.DisplayRole)
+
+            Isdone = QtGui.QStandardItem()
+            Isdone.setData('Marquer comme completé', QtCore.Qt.DisplayRole)
+
+            self.mydata.appendRow([todoID, todoname,  todostatus, Isdone])
+
+
+    def rowCount(self, index):
+        return self.mydata.rowCount()
+
+    def data(self, index, role):
+        if role == Qt.DisplayRole:
+            return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
+        # if role == Qt.BackgroundRole:
+        #     if self.mydata.item(index.row(), 6).data(QtCore.Qt.DisplayRole)== "Pris":
+        #         return QBrush(Qt.darkGreen)
+        #     else:
+        #         return QBrush(Qt.white)
+
+    def columnCount(self, index):
+        return len(self.header)
+
+    def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
+
+        if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+            return self.header[section]

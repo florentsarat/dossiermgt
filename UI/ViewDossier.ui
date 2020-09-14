@@ -3,205 +3,563 @@
  <class>Dialog</class>
  <widget class="QDialog" name="Dialog">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::WindowModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
-    <height>415</height>
+    <width>1075</width>
+    <height>751</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dossier</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Nom du dossier</string>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
+     <property name="title">
+      <string>Dossier</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_16">
+        <property name="text">
+         <string>ODP</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Nom du dossier</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="namedossier">
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Le nom du dossier</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Provenance</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QComboBox" name="provanceDrop">
+        <item>
+         <property name="text">
+          <string>Agence</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Autre</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Status SRU</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="4">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Besoin de Prêt</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="5">
+       <widget class="QComboBox" name="besoinpret">
+        <item>
+         <property name="text">
+          <string>Oui</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Non</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Je ne sais pas</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="3">
+       <widget class="QComboBox" name="statusSRU">
+        <item>
+         <property name="text">
+          <string>A vérifier</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>OK</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>En cours</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLineEdit" name="NotaireVendeur"/>
+      </item>
+      <item row="4" column="4">
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>Mobilier</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Notaire Acquéreur</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="5">
+       <widget class="QComboBox" name="typeDossierCombo">
+        <item>
+         <property name="text">
+          <string>Appartement</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Terrain à batir(TAB)</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Maison</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Lotissement</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Garage</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>VEFA</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SCI</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Parcelle</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Terrain</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="Notac"/>
+      </item>
+      <item row="2" column="4">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Type de dossier</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Notaire Vendeur</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="statusAvantContrat">
+        <property name="text">
+         <string>Statut Avant Contrat</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="statusODP">
+        <item>
+         <property name="text">
+          <string>Pas reçu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Reçu</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Pas de prêt</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QComboBox" name="statusAvantContratComb">
+        <item>
+         <property name="text">
+          <string>A faire</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>En cours</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>En cours - Agence</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>OK</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>OK - Agence</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Prix de vente</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="3">
+       <widget class="QLineEdit" name="prixVente"/>
+      </item>
+      <item row="4" column="5">
+       <widget class="QLineEdit" name="valeurMobilier"/>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="label_20">
+        <property name="text">
+         <string>Commentaires</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1" colspan="5">
+       <widget class="QTextEdit" name="commentsDossier">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkboxDossierRdy">
+        <property name="text">
+         <string>Dossier Constitué</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QComboBox" name="combostatusdossier">
+        <item>
+         <property name="text">
+          <string>PUV en préparation</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>SRU à traiter</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Dossier à constituer</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>En Attente ODP</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>RDV à fixer</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Vente à rédiger</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Sign Compro en cours</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Clos</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Statut</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLabel" name="label_21">
+        <property name="text">
+         <string>Part Notaire</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QSpinBox" name="partNotaire"/>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="namedossier">
-     <property name="inputMask">
-      <string/>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
-     <property name="placeholderText">
-      <string>Le nom du dossier</string>
+     <property name="title">
+      <string>DIA</string>
      </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="4">
+       <widget class="QLabel" name="dateenvoilab">
+        <property name="text">
+         <string>Date d'envoi</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>DIA</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="6">
+       <widget class="QLabel" name="daterecepDIALab">
+        <property name="text">
+         <string>Date de réception</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="7">
+       <widget class="QDateEdit" name="daterecDia">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QComboBox" name="statusDia">
+        <item>
+         <property name="text">
+          <string>Non</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Envoyé</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Oui</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QDateEdit" name="datesendDIA">
+        <property name="dateTime">
+         <datetime>
+          <hour>0</hour>
+          <minute>0</minute>
+          <second>0</second>
+          <year>2015</year>
+          <month>1</month>
+          <day>1</day>
+         </datetime>
+        </property>
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="text">
-      <string>Type de dossier</string>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
+     <property name="title">
+      <string>Dates butoire</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_14">
+        <property name="text">
+         <string>Prêt</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDateEdit" name="dateEdit_3">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_15">
+        <property name="text">
+         <string>Vente</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QDateEdit" name="dateEdit_4">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLabel" name="rdvsignlab">
+        <property name="text">
+         <string>RDV pour signature</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QDateTimeEdit" name="dateRDV">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_18">
+        <property name="text">
+         <string>Dépôt PC</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QDateEdit" name="dateEdit_5">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_19">
+        <property name="text">
+         <string>PC</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QDateEdit" name="dateEdit_6">
+        <property name="calendarPopup">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QCheckBox" name="RDVFixe">
+        <property name="text">
+         <string>RDV Fixé</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QComboBox" name="typeDossier">
-     <item>
-      <property name="text">
-       <string>Appartement</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Terrain à batir(TAB)</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Maison</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Lotissement</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Garage</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>VEFA</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>SCI</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Parcelle</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Terrain</string>
-      </property>
-     </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>A faire</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QTableView" name="viewtododossier"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 170, 0);</string>
+        </property>
+        <property name="text">
+         <string>Ajoute une nouvelle tâche</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="label_7">
-     <property name="text">
-      <string>Provenance</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="1">
-    <widget class="QComboBox" name="provanceDrop">
-     <item>
-      <property name="text">
-       <string>Agence</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Autre</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="statusAvantContrat">
-     <property name="text">
-      <string>Statut Avant Contrat</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_4">
-     <property name="text">
-      <string>Notaire Vendeur</string>
-     </property>
-    </widget>
-   </item>
-   <item row="6" column="1">
-    <widget class="QLineEdit" name="NotaireVendeur"/>
-   </item>
-   <item row="7" column="0">
-    <widget class="QLabel" name="label_5">
-     <property name="text">
-      <string>Notaire Acquéreur</string>
-     </property>
-    </widget>
-   </item>
-   <item row="7" column="1">
-    <widget class="QLineEdit" name="lineEdit_2"/>
-   </item>
-   <item row="8" column="0">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="9" column="0">
-    <widget class="QLabel" name="label_6">
-     <property name="text">
-      <string>Besoin de Prêt</string>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="1">
-    <widget class="QComboBox" name="comboBox">
-     <item>
-      <property name="text">
-       <string>Oui</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Non</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Je ne sais pas</string>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="10" column="0">
-    <widget class="QLabel" name="label_3">
-     <property name="text">
-      <string>Commentaires</string>
-     </property>
-    </widget>
-   </item>
-   <item row="10" column="1">
-    <widget class="QTextEdit" name="textComment"/>
-   </item>
-   <item row="11" column="0">
-    <widget class="QDialogButtonBox" name="validatenewdossier">
+   <item>
+    <widget class="QDialogButtonBox" name="validatedossier">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -210,26 +568,12 @@
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QComboBox" name="statusAvantContratComb">
-     <item>
-      <property name="text">
-       <string>En cours - Agence</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>OK - Agence</string>
-      </property>
-     </item>
-    </widget>
-   </item>
   </layout>
  </widget>
  <resources/>
  <connections>
   <connection>
-   <sender>validatenewdossier</sender>
+   <sender>validatedossier</sender>
    <signal>accepted()</signal>
    <receiver>Dialog</receiver>
    <slot>accept()</slot>
@@ -245,7 +589,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>validatenewdossier</sender>
+   <sender>validatedossier</sender>
    <signal>rejected()</signal>
    <receiver>Dialog</receiver>
    <slot>reject()</slot>

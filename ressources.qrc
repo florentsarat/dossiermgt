@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="UI">
+        <file>UI/FormCreate.ui</file>
+        <file>UI/RDVTodo.ui</file>
+        <file>UI/TaskTodo.ui</file>
+        <file>UI/TestFlo.ui</file>
+        <file>UI/ViewDossier.ui</file>
+    </qresource>
+</RCC>
