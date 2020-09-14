@@ -546,7 +546,7 @@
        <widget class="QTableView" name="viewtododossier"/>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="addNewTaskButton">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(0, 170, 0);</string>
         </property>

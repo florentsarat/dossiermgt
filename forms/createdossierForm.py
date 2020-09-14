@@ -9,6 +9,7 @@ from PySide2.QtUiTools import QUiLoader
 
 import ressources
 
+
 class CreateForm(QDialog):
     mySignal = QtCore.Signal(Dossier)
 
@@ -28,7 +29,6 @@ class CreateForm(QDialog):
         self.ui.provanceDrop.currentIndexChanged.connect(self.manageAvantContratFromDropProvenance)
         self.validatedossierButton = self.ui.findChild(QDialogButtonBox, "validatenewdossier")
         self.validatedossierButton.accepted.connect(self.clickedBtnCreateDossier)
-
 
     def manageAvantContratFromDropProvenance(self):
         if self.ui.provanceDrop.currentText() != "Agence":

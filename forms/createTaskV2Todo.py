@@ -3,7 +3,7 @@ from PySide2 import QtCore
 from PySide2.QtWidgets import QDialog, QDialogButtonBox
 
 
-from datamodel.models import TodoRDV, Todoelement
+from datamodel.models import Todoelement
 
 from PySide2.QtUiTools import QUiLoader
 
@@ -14,7 +14,8 @@ class CreateTaskV2Todo(QDialog):
     def __init__(self, parent, dossier, session, index):
         super(CreateTaskV2Todo, self).__init__(parent)
 
-        ui_file = ":UI\\UI\\RDVTodo.ui"
+        # ui_file = ":UI\\UI\\RDVTodo.ui"
+        ui_file = "UI\\RDVTodo.ui"
         ui_file = QtCore.QFile(ui_file)
         ui_file.open(QtCore.QFile.ReadOnly)
         loader = QUiLoader()

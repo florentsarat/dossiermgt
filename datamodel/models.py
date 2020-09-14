@@ -82,6 +82,7 @@ class Dossier(Base):
         self.dossierReady = False
         self.RDVFixe = False
 
+
 class Todoelement(Base):
     __tablename__ = 'todoelement'
     id = Column(Integer, primary_key=True)
@@ -100,18 +101,18 @@ class Todoelement(Base):
         self.datelimit = datelimit
 
 
-class TodoRDV(Todoelement):
-
-    avec = Column(String(100))
-    typedeRDV =Column(String(100))
-    __mapper_args__ = {
-        'polymorphic_identity': 'TodoRDV',
-    }
-
-    def __init__(self, name, avec, typederdv, datelimit):
-        # super().__init__(name)
-        self.name = name
-        self.status = 'A réaliser'
-        self.avec = avec
-        self.typedeRDV = typederdv
-        self.datelimit= datelimit
+# class TodoRDV(Todoelement):
+#
+#     avec = Column(String(100))
+#     typedeRDV =Column(String(100))
+#     __mapper_args__ = {
+#         'polymorphic_identity': 'TodoRDV',
+#     }
+#
+#     def __init__(self, name, avec, typederdv, datelimit):
+#         # super().__init__(name)
+#         self.name = name
+#         self.status = 'A réaliser'
+#         self.avec = avec
+#         self.typedeRDV = typederdv
+#         self.datelimit= datelimit

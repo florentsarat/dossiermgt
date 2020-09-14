@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1204</width>
-    <height>811</height>
+    <width>661</width>
+    <height>812</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +24,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -107,16 +110,70 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
-       <attribute name="title">
-        <string>Liste todo</string>
-       </attribute>
-      </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Gestion de RDV</string>
+        <string>A faire</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Rechercher</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="7">
+            <widget class="QLCDNumber" name="TacheEnCours">
+             <property name="segmentStyle">
+              <enum>QLCDNumber::Flat</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="recherchetaskvalue"/>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Statut</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QPushButton" name="doatasksearch">
+             <property name="text">
+              <string>Rechercher</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="5">
+            <widget class="QComboBox" name="statusfiltertask">
+             <item>
+              <property name="text">
+               <string>Tous</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>A Faire</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Réalisée</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>Nombre de tâche en cours</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
         <item>
          <widget class="QTableView" name="listedeRDV"/>
         </item>
@@ -157,17 +214,26 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1204</width>
+     <width>661</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuA_propos">
+    <property name="tearOffEnabled">
+     <bool>true</bool>
+    </property>
+    <property name="title">
+     <string>A propos</string>
+    </property>
+   </widget>
+   <addaction name="menuA_propos"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

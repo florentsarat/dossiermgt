@@ -1,20 +1,22 @@
 
-from PySide2.QtWidgets import QDialog,QTableView, QDialogButtonBox
+from PySide2.QtWidgets import QDialog,QTableView, QDialogButtonBox, QPushButton
 from PySide2 import QtCore
 
 from PySide2.QtUiTools import QUiLoader
 
-from viewmodels import viewModels as viewModels, viewdelegates as viewdelegates
+from viewmodels import taskInDossier, viewdelegates as viewdelegates
 
-from datamodel.models import Todoelement
+from forms import createTaskV2Todo
 
-from datamodel.models import Dossier
+from datamodel.models import Dossier, Todoelement
 
 import ressources
 
 
 class EditForm(QDialog):
-    mySignal = QtCore.Signal(Dossier, QtCore.QModelIndex)
+    mySignal = QtCore.Signal(QtCore.QModelIndex, Dossier)
+    mySignalFortasksUpdate = QtCore.Signal(QtCore.QModelIndex, Todoelement)
+    mySignalForNewtask = QtCore.Signal(Todoelement)
 
     def __init__(self, parent, session, mydossier, index):
         super(EditForm, self).__init__(parent)
@@ -45,6 +47,9 @@ class EditForm(QDialog):
 
         self.validatedossierButton = self.ui.findChild(QDialogButtonBox, "validatedossier")
         self.validatedossierButton.accepted.connect(self.clickedbtnsavedossier)
+
+        self.createnewtaskbutton = self.ui.findChild(QPushButton,'addNewTaskButton')
+        self.createnewtaskbutton.clicked.connect(self.addnewbuttonaction)
 
     def setdisplay(self):
 
@@ -232,7 +237,7 @@ class EditForm(QDialog):
         self.dossier.partNotaire =self.ui.partNotaire.value()
 
         self.session.commit()
-        self.mySignal.emit(self.dossier, self.index)
+        self.mySignal.emit(self.index, self.dossier)
 
     def statuslogic(self):
         if self.ui.provanceDrop.currentText() == "Agence":
@@ -262,21 +267,31 @@ class EditForm(QDialog):
 
     def populatetodotable(self):
         self.viewtododossier = self.ui.findChild(QTableView, "viewtododossier")
-        self.model = viewModels.allTodoTableViewInDossier(self.dossier.todoactions)
+        self.model = taskInDossier.allTodoTableViewInDossier(self.dossier.todoactions)
         self.viewtododossier.setModel(self.model)
         self.viewtododossier.resizeColumnsToContents()
 
         delegateTask = viewdelegates.PushButtonDelegate(self.viewtododossier)
-        self.viewtododossier.setItemDelegateForColumn(3, delegateTask)
+        self.viewtododossier.setItemDelegateForColumn(4, delegateTask)
         delegateTask.clicked.connect(self.updatetasks)
+
+    def addnewbuttonactionreturn(self,todo):
+        self.model.appendtask(todo)
+        self.mySignalForNewtask.emit(todo)
+
+    def addnewbuttonaction(self):
+        self.createTaskTodo = createTaskV2Todo.CreateTaskV2Todo(self, self.dossier, self.session, None)
+        self.createTaskTodo.addsignal.connect(self.addnewbuttonactionreturn)
+        self.createTaskTodo.ui.show()
 
     def updatetasks(self, index):
         if index.isValid():
             todo = self.session.query(Todoelement).get(index.model().mydata.item(index.row(), 0).data(QtCore.Qt.DisplayRole))
             todo.status = 'Réalisée'
             self.session.commit()
-            self.updatetodo()
+            self.updatetodo(todo, index)
 
-    def updatetodo(self):
-        self.model.getData(self.session.query(Todoelement).filter(Todoelement.dossier_id == self.dossier.id))
+    def updatetodo(self,todo, index):
+        self.model.updateatask(index,todo)
         self.model.layoutChanged.emit()
+        self.mySignalFortasksUpdate.emit(index, todo)
