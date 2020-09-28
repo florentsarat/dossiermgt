@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, Float
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey, Float, DateTime
 from sqlalchemy.orm import relationship
 
 
@@ -36,19 +36,22 @@ class Dossier(Base):
     DiaSendDate = Column(Date)
     DiaAnsDate = Column(Date)
 
+    statusPC = Column(String)
     deadlineDepotPC = Column(Date)
-
     deadlinePC = Column(Date)
 
     pret = Column(String)
-    deadlinePret = Column(String)
+
+    deadlinePretRdy = Column(Boolean)
+    deadlinePret = Column(Date)
 
     ODPReceived = Column(String)
 
+    deadlineVenteRdy = Column(Boolean)
     deadlineVente = Column(Date)
 
     RDVFixe = Column(Boolean)
-    datesignature = Column(Date)
+    datesignature = Column(DateTime)
 
     agencePriceDossier = Column(Integer)
     dateDossier = Column(Date)
@@ -75,6 +78,8 @@ class Dossier(Base):
         self.pret = "Je ne sais pas"
         self.statusDia = "Non"
 
+        self.statusPC = "A Faire"
+
         self.commentsDossier = comment
         self.dateDossier = datedossier
         self.statusDossier = status
@@ -82,6 +87,8 @@ class Dossier(Base):
         self.dossierReady = False
         self.RDVFixe = False
 
+        self.deadlinePretRdy = False
+        self.deadlineVenteRdy = False
 
 class Todoelement(Base):
     __tablename__ = 'todoelement'

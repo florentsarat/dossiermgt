@@ -1,5 +1,5 @@
 from PySide2 import QtCore, QtGui
-from PySide2.QtCore import Qt,QAbstractTableModel, QDate
+from PySide2.QtCore import Qt,QAbstractTableModel, QDate, QDateTime
 from PySide2.QtGui import QBrush
 
 
@@ -53,9 +53,6 @@ def definedossiertableboject(dossiertoupdate):
         editAction = QtGui.QStandardItem()
         editAction.setData('Editer', QtCore.Qt.DisplayRole)
 
-        # afaire = QtGui.QStandardItem()
-        # afaire.setData('+Tâche', QtCore.Qt.DisplayRole)
-
         actionbutton = QtGui.QStandardItem()
         actionbutton.setData('+Ajouter une tâche', QtCore.Qt.DisplayRole)
 
@@ -80,7 +77,7 @@ class DossiersTableView(QAbstractTableModel):
     def updateadossier(self, index, dossiertoupdate):
         mynewline=definedossiertableboject(dossiertoupdate)
 
-        self.mydata.setItem(index.row(),1,mynewline[1])
+        self.mydata.setItem(index.row(), 1,mynewline[1])
         self.mydata.setItem(index.row(), 2, mynewline[2])
         self.mydata.setItem(index.row(), 3, mynewline[3])
         self.mydata.setItem(index.row(), 4, mynewline[4])
@@ -89,6 +86,10 @@ class DossiersTableView(QAbstractTableModel):
         self.mydata.setItem(index.row(), 7, mynewline[7])
         self.mydata.setItem(index.row(), 8, mynewline[8])
         self.mydata.setItem(index.row(), 9, mynewline[9])
+        self.mydata.setItem(index.row(), 10, mynewline[10])
+        self.mydata.setItem(index.row(), 11, mynewline[11])
+        self.mydata.setItem(index.row(), 12, mynewline[12])
+        self.mydata.setItem(index.row(), 13, mynewline[13])
 
     def appenddossier(self, newdossiertoappend):
         if newdossiertoappend is not None:
@@ -104,9 +105,6 @@ class DossiersTableView(QAbstractTableModel):
                 lineForDossier= definedossiertableboject(dossier)
                 self.mydata.appendRow(lineForDossier)
 
-    # def triggerupdate(self):
-    #     self.layoutChanged.emit()
-
     def rowCount(self, index):
         return self.mydata.rowCount()
 
@@ -115,8 +113,10 @@ class DossiersTableView(QAbstractTableModel):
         # pass
         if index.isValid():
             if role == Qt.DisplayRole:
-                if index.column() == 10:
+                if index.column() in (10,11,12,13):
                     return QDate(self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole))
+                elif index.column() == 14:
+                    return QDateTime(self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole))
                 else:
                     return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
         else:

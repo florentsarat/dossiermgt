@@ -37,7 +37,10 @@ class EditForm(QDialog):
         # Comboxbox management
         self.ui.combostatusdossier.currentIndexChanged.connect(self.flagasstatuschangemanually)
         self.ui.statusDia.currentIndexChanged.connect(self.diamanagement)
+        self.ui.statutPC.currentIndexChanged.connect(self.pcmanagement)
         self.ui.RDVFixe.stateChanged.connect(self.managerdvfixe)
+        self.ui.pretRdy.stateChanged.connect(self.pretDatemanagement)
+        self.ui.venteRdy.stateChanged.connect(self.venteDatemanagement)
 
         self.populateview()
         self.populatetodotable()
@@ -54,6 +57,7 @@ class EditForm(QDialog):
     def setdisplay(self):
 
         self.diamanagement()
+        self.pcmanagement()
 
         if self.ui.RDVFixe.checkState() == QtCore.Qt.Checked:
             self.ui.rdvsignlab.show()
@@ -62,6 +66,16 @@ class EditForm(QDialog):
             self.ui.rdvsignlab.hide()
             self.ui.dateRDV.hide()
 
+        if self.ui.pretRdy.checkState() == QtCore.Qt.Checked:
+            self.ui.datepret.show()
+        else:
+            self.ui.datepret.hide()
+
+        if self.ui.venteRdy.checkState() == QtCore.Qt.Checked:
+            self.ui.datevente.show()
+        else:
+            self.ui.datevente.hide()
+
     def managerdvfixe(self, state):
         if state == QtCore.Qt.Checked:
             self.ui.rdvsignlab.show()
@@ -69,6 +83,35 @@ class EditForm(QDialog):
         else:
             self.ui.rdvsignlab.hide()
             self.ui.dateRDV.hide()
+
+    def venteDatemanagement(self, state):
+        if state == QtCore.Qt.Checked:
+            self.ui.datevente.show()
+        else:
+            self.ui.datevente.hide()
+
+    def pretDatemanagement(self, state):
+        if state == QtCore.Qt.Checked:
+            self.ui.datepret.show()
+        else:
+            self.ui.datepret.hide()
+
+    def pcmanagement(self):
+        if self.ui.statutPC.currentText() == "A Faire":
+            self.ui.labeldepotPC.hide()
+            self.ui.DepotPCDate.hide()
+            self.ui.labelPC.hide()
+            self.ui.datePC.hide()
+        elif self.ui.statutPC.currentText() == "Dépôt":
+            self.ui.labeldepotPC.show()
+            self.ui.DepotPCDate.show()
+            self.ui.labelPC.hide()
+            self.ui.datePC.hide()
+        else:
+            self.ui.labeldepotPC.show()
+            self.ui.DepotPCDate.show()
+            self.ui.labelPC.show()
+            self.ui.datePC.show()
 
     def diamanagement(self):
         if self.ui.statusDia.currentText() == "Non":
@@ -123,9 +166,7 @@ class EditForm(QDialog):
         elif self.dossier.typeDossier == "Terrain à batir(TAB)":
             self.ui.typeDossierCombo.setCurrentIndex(1)
         elif self.dossier.typeDossier == "Maison":
-            print(self.ui.typeDossierCombo.currentIndex())
             self.ui.typeDossierCombo.setCurrentIndex(5)
-            print(self.ui.typeDossierCombo)
             self.ui.typeDossierCombo.setCurrentIndex(2)
         elif self.dossier.typeDossier == "Lotissement":
             self.ui.typeDossierCombo.setCurrentIndex(3)
@@ -183,19 +224,74 @@ class EditForm(QDialog):
         elif self.dossier.statusDia =="Oui":
             self.ui.statusDia.setCurrentIndex(2)
 
-        if self.dossier.DiaSendDate is not None:
-            self.ui.datesendDIA.setDate(self.dossier.DiaSendDate)
-            # self.ui.datesendDIA = self.dossier.DiaSendDate
+        if self.dossier.statusPC == "A Faire":
+            self.ui.statutPC.setCurrentIndex(0)
+        elif self.dossier.statusPC == "Dépôt":
+            self.ui.statutPC.setCurrentIndex(1)
         else:
-            pass
+            self.ui.statutPC.setCurrentIndex(2)
 
         if self.dossier.dossierReady:
             self.ui.checkboxDossierRdy.setCheckState(QtCore.Qt.Checked)
         else:
             self.ui.checkboxDossierRdy.setCheckState(QtCore.Qt.Unchecked)
 
+        if self.dossier.deadlinePretRdy:
+            self.ui.pretRdy.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.ui.pretRdy.setCheckState(QtCore.Qt.Unchecked)
+
+        if self.dossier.deadlineVenteRdy:
+            self.ui.venteRdy.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.ui.venteRdy.setCheckState(QtCore.Qt.Unchecked)
+
+        if self.dossier.RDVFixe:
+            self.ui.RDVFixe.setCheckState(QtCore.Qt.Checked)
+        else:
+            self.ui.RDVFixe.setCheckState(QtCore.Qt.Unchecked)
+
         if self.dossier.partNotaire is not None:
             self.ui.partNotaire.setValue(self.dossier.partNotaire)
+
+        self.managedates()
+
+    def managedates(self):
+
+        if self.dossier.DiaSendDate is None:
+            self.ui.datesendDIA.setDate(QtCore.QDate.currentDate())
+        else:
+            self.ui.datesendDIA.setDate(self.dossier.DiaSendDate)
+
+        if self.dossier.DiaAnsDate is None:
+            self.ui.daterecDia.setDate(QtCore.QDate.currentDate())
+        else:
+            self.ui.daterecDia.setDate(self.dossier.DiaAnsDate)
+
+        if self.dossier.deadlineDepotPC is None:
+            self.ui.DepotPCDate.setDate(QtCore.QDate.currentDate())
+        else:
+            self.ui.DepotPCDate.setDate(self.dossier.deadlineDepotPC)
+
+        if self.dossier.deadlinePret is None:
+            self.ui.datepret.setDate(QtCore.QDate.currentDate())
+        else:
+            self.ui.datepret.setDate(self.dossier.deadlinePret)
+
+        if self.dossier.deadlinePC is None:
+            self.ui.datePC.setDate(QtCore.QDate.currentDate())
+        else:
+            self.ui.datePC.setDate(self.dossier.deadlinePC)
+
+        if self.dossier.deadlineVente is None:
+            self.ui.datevente.setDate(QtCore.QDate.currentDate())
+        else:
+            self.ui.datevente.setDate(self.dossier.deadlineVente)
+
+        if self.dossier.datesignature is None:
+            self.ui.dateRDV.setDateTime(QtCore.QDateTime.currentDateTime())
+        else:
+            self.ui.dateRDV.setDateTime(self.dossier.datesignature)
 
     def clickedbtnsavedossier(self):
         self.dossier.nameDossier = self.ui.namedossier.text()
@@ -222,7 +318,23 @@ class EditForm(QDialog):
 
         self.dossier.statusDia = self.ui.statusDia.currentText()
 
-        self.dossier.DiaSendDate = self.ui.datesendDIA.dateTime().toPython()
+        if self.ui.statusDia.currentText() == "Non":
+            pass
+        elif self.ui.statusDia.currentText() == "Envoyé":
+            self.dossier.DiaSendDate = self.ui.datesendDIA.dateTime().toPython()
+        elif self.ui.statusDia.currentText() == "Oui":
+            self.dossier.DiaSendDate = self.ui.datesendDIA.dateTime().toPython()
+            self.dossier.DiaAnsDate = self.ui.daterecDia.dateTime().toPython()
+
+        self.dossier.statusPC = self.ui.statutPC.currentText()
+
+        if self.ui.statutPC.currentText() == "A Faire":
+            pass
+        elif self.ui.statutPC.currentText() == "Dépôt":
+            self.dossier.deadlineDepotPC = self.ui.DepotPCDate.dateTime().toPython()
+        else:
+            self.dossier.deadlineDepotPC = self.ui.DepotPCDate.dateTime().toPython()
+            self.dossier.deadlinePC = self.ui.datePC.dateTime().toPython()
 
         if self.ui.checkboxDossierRdy.checkState() == QtCore.Qt.Checked:
             self.dossier.dossierReady = True
@@ -235,6 +347,24 @@ class EditForm(QDialog):
             self.dossier.RDVFixe = False
 
         self.dossier.partNotaire =self.ui.partNotaire.value()
+
+        if self.ui.pretRdy.checkState() == QtCore.Qt.Checked:
+            self.dossier.deadlinePretRdy = True
+            self.dossier.deadlinePret = self.ui.datepret.dateTime().toPython()
+        else:
+            self.dossier.deadlinePretRdy = False
+
+        if self.ui.venteRdy.checkState() == QtCore.Qt.Checked:
+            self.dossier.deadlineVenteRdy = True
+            self.dossier.deadlineVente = self.ui.datevente.dateTime().toPython()
+        else:
+            self.dossier.deadlineVenteRdy = False
+
+        if self.ui.RDVFixe.checkState() == QtCore.Qt.Checked:
+            self.dossier.RDVFixe = True
+            self.dossier.datesignature = self.ui.dateRDV.dateTime().toPython()
+        else:
+            self.dossier.RDVFixe = False
 
         self.session.commit()
         self.mySignal.emit(self.index, self.dossier)

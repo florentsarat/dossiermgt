@@ -45,11 +45,20 @@ class Home(QMainWindow):
 
         self.ui.searchcontent.returnPressed.connect(self.searchfordossier)
 
+        self.ui.mytabs.currentChanged.connect(self.managemangeTab)
+
         self.setdossiertable()
         self.settasktable()
         self.manageprogressbar()
         self.ui.showMaximized()
         # self.ui.show()
+
+    def managemangeTab(self):
+        if self.ui.mytabs.currentIndex()== 0:
+            self.ui.searchcontent.returnPressed.connect(self.searchfordossier)
+        else:
+
+            self.ui.recherchetaskvalue.returnPressed.connect(self.searchfortask)
 
     ###########################
     # Dossiers
@@ -138,7 +147,7 @@ class Home(QMainWindow):
         self.mydossiersTable.resizeColumnsToContents()
 
     ###########################
-    # RDV
+    # Tasks
     ###########################
 
     def load_tasks(self):
@@ -177,6 +186,8 @@ class Home(QMainWindow):
             mytask.status = 'Réalisée'
             self.session.commit()
             self.updateTasklistwhenedit(index, mytask)
+            self.getTaskKPI()
+            self.manageprogressbar()
 
     # Display
     def settasktable(self):
@@ -218,7 +229,11 @@ class Home(QMainWindow):
     def updateforedittask(self):
         self.load_tasks()
         self.mytasktable.model().sourceModel().resetdata(self.mytasksTodos)
+        self.getTaskKPI()
+        self.manageprogressbar()
 
     def appendtask(self, tasktoadd):
         self.sortermodeltask.sourceModel().appendtask(tasktoadd)
         self.mytasktable.resizeColumnsToContents()
+        self.getTaskKPI()
+        self.manageprogressbar()

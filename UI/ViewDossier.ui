@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1075</width>
-    <height>751</height>
+    <height>910</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -287,10 +287,19 @@
       <item row="6" column="1" colspan="5">
        <widget class="QTextEdit" name="commentsDossier">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+         <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>20</height>
+         </size>
+        </property>
+        <property name="sizeAdjustPolicy">
+         <enum>QAbstractScrollArea::AdjustToContents</enum>
         </property>
        </widget>
       </item>
@@ -455,82 +464,144 @@
      <property name="title">
       <string>Dates butoire</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_14">
-        <property name="text">
-         <string>Prêt</string>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="2" column="0">
+       <widget class="QGroupBox" name="groupBox_6">
+        <property name="title">
+         <string>Date butoire Prêt</string>
         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QCheckBox" name="pretRdy">
+           <property name="text">
+            <string>Définissable</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="datepret">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QDateEdit" name="dateEdit_3">
-        <property name="calendarPopup">
-         <bool>true</bool>
+      <item row="2" column="2">
+       <widget class="QGroupBox" name="groupBox_8">
+        <property name="title">
+         <string>Signature</string>
         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QCheckBox" name="RDVFixe">
+           <property name="text">
+            <string>RDV Fixé</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="rdvsignlab">
+           <property name="text">
+            <string>Date et heure</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateTimeEdit" name="dateRDV">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="label_15">
-        <property name="text">
-         <string>Vente</string>
+      <item row="2" column="1">
+       <widget class="QGroupBox" name="groupBox_7">
+        <property name="title">
+         <string>Date butoire Vente</string>
         </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <widget class="QCheckBox" name="venteRdy">
+           <property name="text">
+            <string>Définissable</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="datevente">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="QDateEdit" name="dateEdit_4">
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QLabel" name="rdvsignlab">
-        <property name="text">
-         <string>RDV pour signature</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="5">
-       <widget class="QDateTimeEdit" name="dateRDV">
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_18">
-        <property name="text">
-         <string>Dépôt PC</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QDateEdit" name="dateEdit_5">
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_19">
-        <property name="text">
+      <item row="0" column="0" rowspan="2" colspan="3">
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="title">
          <string>PC</string>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QDateEdit" name="dateEdit_6">
-        <property name="calendarPopup">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="5">
-       <widget class="QCheckBox" name="RDVFixe">
-        <property name="text">
-         <string>RDV Fixé</string>
-        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Statut PC</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="statutPC">
+           <item>
+            <property name="text">
+             <string>A Faire</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Dépôt</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>OK</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labeldepotPC">
+           <property name="text">
+            <string>Dépôt PC</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="DepotPCDate">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="labelPC">
+           <property name="text">
+            <string>PC</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDateEdit" name="datePC">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </item>
      </layout>
