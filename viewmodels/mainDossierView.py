@@ -1,3 +1,4 @@
+import datetime
 from PySide2 import QtCore, QtGui
 from PySide2.QtCore import Qt,QAbstractTableModel, QDate, QDateTime
 from PySide2.QtGui import QBrush
@@ -119,6 +120,18 @@ class DossiersTableView(QAbstractTableModel):
                     return QDateTime(self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole))
                 else:
                     return self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole)
+            if role == Qt.TextAlignmentRole:
+                return Qt.AlignCenter
+
+            if role == Qt.ForegroundRole and index.column() in (11,12,13):
+                if self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole) is not None:
+                    status = self.mydata.item(index.row(), 9).data(QtCore.Qt.DisplayRole)
+                    limitdate = self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole) - datetime.timedelta(days=5)
+                    if status != "Clos":
+                        if self.mydata.item(index.row(), index.column()).data(QtCore.Qt.DisplayRole) < QtCore.QDate.currentDate():
+                            return QtGui.QColor('red')
+                        elif limitdate < QtCore.QDate.currentDate():
+                            return QtGui.QColor('orange')
         else:
             print('invalid')
 

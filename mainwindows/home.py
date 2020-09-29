@@ -6,7 +6,7 @@ from datamodel.models import Dossier, Todoelement
 
 from viewmodels import mainTaskView, mainDossierView, viewdelegates as viewdelegates
 
-from forms import createdossierForm, createTaskV2Todo, editdossierForm
+from forms import createdossierForm, createTaskV2Todo, editdossierForm, aboutform
 
 from customclasses.multifilterproxymodel import MultiFilterProxyModel
 import ressources
@@ -46,6 +46,8 @@ class Home(QMainWindow):
         self.ui.searchcontent.returnPressed.connect(self.searchfordossier)
 
         self.ui.mytabs.currentChanged.connect(self.managemangeTab)
+
+        self.ui.menuA_propos.triggered.connect(self.displayabout)
 
         self.setdossiertable()
         self.settasktable()
@@ -237,3 +239,12 @@ class Home(QMainWindow):
         self.mytasktable.resizeColumnsToContents()
         self.getTaskKPI()
         self.manageprogressbar()
+
+    ###########################
+    # About
+    ###########################
+
+    def displayabout(self):
+        print('here')
+        self.aboutform = aboutform.aboutForm(self)
+        self.aboutform.ui.show()
