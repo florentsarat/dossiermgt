@@ -14,4 +14,4 @@ image::./documentation/overview.png[]
 
 image::./documentation/Acase.png[]
 
-image::./documentation/tasks.png
+image::./documentation/tasks.png[]
