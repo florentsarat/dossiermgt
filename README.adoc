@@ -1,0 +1,17 @@
+# Gestionnaire de Dossier de vente
+
+Quick side project to play with Python and Qt.
+
+Provide a basic tool to help notaries manage their work
+
+.Features:
+* Case creation
+* Case workflow
+* Custom task creation and completion
+
+image::Overview.png[link=documentation/Overview.png]
+
+image::Acase.png[link=documentation/Acase.png]
+
+image::tasks.png[link=documentation/tasks.png]
+

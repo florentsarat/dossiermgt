@@ -12,7 +12,7 @@ from mainwindows import home
 import ressources
 
 #############################
-# DB setup and initialization
+# DB setup and initializationip
 #############################
 engine = create_engine('sqlite:///dossiers.db', echo = False)
 Base.metadata.create_all(engine)
