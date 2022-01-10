@@ -1,5 +1,5 @@
 = Gestionnaire de Dossier de vente
-:imagesdir:./documentation/
+
 
 Quick side project to play with Python and Qt.
 
@@ -10,9 +10,8 @@ Provide a basic tool to help notaries manage their work
 * Case workflow
 * Custom task creation and completion
 
-image::Overview.png[link=Overview.png]
+image::./documentation/overview.png[]
 
-image::Acase.png[link=Acase.png]
+image::./documentation/Acase.png[]
 
-image::tasks.png[link=tasks.png]
-
+image::./documentation/tasks.png
