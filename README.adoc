@@ -10,8 +10,10 @@ Provide a basic tool to help notaries manage their work
 * Case workflow
 * Custom task creation and completion
 
+
 image::./documentation/Overview.png[]
 
 image::./documentation/Acase.png[]
 
 image::./documentation/tasks.png[]
+
