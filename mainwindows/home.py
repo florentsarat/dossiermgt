@@ -9,7 +9,7 @@ from viewmodels import mainTaskView, mainDossierView, viewdelegates as viewdeleg
 from forms import createdossierForm, createTaskV2Todo, editdossierForm, aboutform
 
 from customclasses.multifilterproxymodel import MultiFilterProxyModel
-import ressources
+import resources
 
 
 class Home(QMainWindow):
@@ -17,8 +17,8 @@ class Home(QMainWindow):
     def __init__(self, session):
         super(Home, self).__init__()
 
-        # ui_file =":UI\\UI\\mainwindow.ui"
-        ui_file = "UI\\mainwindow.ui"
+        ui_file =":UI\\UI\\mainwindow.ui"
+        # ui_file = "UI\\mainwindow.ui"
         ui_file = QtCore.QFile(ui_file)
         ui_file.open(QtCore.QFile.ReadOnly)
         loader = QUiLoader()
@@ -71,7 +71,7 @@ class Home(QMainWindow):
 
     # Filters
     def searchfordossier(self):
-        self.sortermodelDossier.setFilterByColumn(1, self.ui.searchcontent.text())
+        self.sortermodelDossier.setFilterByColumn(1, ".*" + self.ui.searchcontent.text())
 
     def displayolddossier(self, state):
         if state == QtCore.Qt.Checked:
@@ -162,7 +162,7 @@ class Home(QMainWindow):
 
     # Filter
     def searchfortask(self):
-        self.sortermodeltask.setFilterByColumn(1, self.ui.recherchetaskvalue.text())
+        self.sortermodeltask.setFilterByColumn(1, ".*" +self.ui.recherchetaskvalue.text())
 
     def filterbystatus(self):
         if self.ui.statusfiltertask.currentText() == "Tous":

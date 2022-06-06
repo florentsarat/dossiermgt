@@ -91,6 +91,7 @@ class DossiersTableView(QAbstractTableModel):
         self.mydata.setItem(index.row(), 11, mynewline[11])
         self.mydata.setItem(index.row(), 12, mynewline[12])
         self.mydata.setItem(index.row(), 13, mynewline[13])
+        self.mydata.setItem(index.row(), 14, mynewline[14])
 
     def appenddossier(self, newdossiertoappend):
         if newdossiertoappend is not None:

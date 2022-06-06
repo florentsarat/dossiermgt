@@ -7,7 +7,7 @@ from datamodel.models import Dossier
 
 from PySide2.QtUiTools import QUiLoader
 
-import ressources
+import resources
 
 
 class CreateForm(QDialog):
@@ -16,8 +16,8 @@ class CreateForm(QDialog):
     def __init__(self, parent, session):
         super(CreateForm, self).__init__(parent)
 
-        # ui_file = ":UI\\UI\\FormCreate.ui"
-        ui_file = "UI\\FormCreate.ui"
+        ui_file = ":UI\\UI\\FormCreate.ui"
+        # ui_file = "UI\\FormCreate.ui"
         ui_file = QtCore.QFile(ui_file)
         ui_file.open(QtCore.QFile.ReadOnly)
         loader = QUiLoader()

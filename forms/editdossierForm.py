@@ -10,7 +10,7 @@ from forms import createTaskV2Todo
 
 from datamodel.models import Dossier, Todoelement
 
-import ressources
+import resources
 
 
 class EditForm(QDialog):
@@ -21,8 +21,8 @@ class EditForm(QDialog):
     def __init__(self, parent, session, mydossier, index):
         super(EditForm, self).__init__(parent)
 
-        # ui_file =":UI\\UI\\ViewDossier.ui"
-        ui_file = "UI\\ViewDossier.ui"
+        ui_file =":UI\\UI\\ViewDossier.ui"
+        # ui_file = "UI\\ViewDossier.ui"
         ui_file = QtCore.QFile(ui_file)
         ui_file.open(QtCore.QFile.ReadOnly)
         loader = QUiLoader()

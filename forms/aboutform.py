@@ -9,8 +9,8 @@ class aboutForm(QDialog):
     def __init__(self, parent):
         super(aboutForm, self).__init__(parent)
 
-        # ui_file = ":UI\\UI\\about.ui"
-        ui_file = "UI\\about.ui"
+        ui_file = ":UI\\UI\\about.ui"
+        # ui_file = "UI\\about.ui"
         ui_file = QtCore.QFile(ui_file)
         ui_file.open(QtCore.QFile.ReadOnly)
         loader = QUiLoader()

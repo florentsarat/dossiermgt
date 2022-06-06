@@ -9,7 +9,7 @@ from init import Base
 
 from mainwindows import home
 
-import ressources
+import resources
 
 #############################
 # DB setup and initializationip
